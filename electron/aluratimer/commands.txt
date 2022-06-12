@@ -1,0 +1,7 @@
+win=electron-packager . alura-timer --plataform=win32 --arch=x64 --icon=icons/icon.ico
+all-64=electron-packager . alura-timer --plataform=darwin,linux,win32 --arch=x64 --icon=icons/icon
+
+https://www.electronjs.org/pt/docs/latest
+https://github.com/electron/electron-packager
+https://www.npmjs.com/package/jsonfile-promised
+https://momentjs.com/

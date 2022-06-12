@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require ('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, globalShortcut } = require ('electron');
 const data = require('./data');
 const template = require('./template');
 
@@ -16,11 +16,19 @@ app.on('ready', () => {
         height: 400
     });
 
-    tray = new Tray(`${__dirname}/app/img/icon.png`);
+    tray = new Tray(`${__dirname}/app/img/icon-tray.png`);
     let trayMenu = Menu.buildFromTemplate(template.geraTrayTemplate(mainWindow));
     tray.setContextMenu(trayMenu);
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template.geraMenuPrincipalTemplate(app)));
+
+    if (process.platform === 'win32') {
+        app.setAppUserModelId(app.name);
+    }
+
+    globalShortcut.register('CmdOrCtrl+Shift+J', () => {
+        mainWindow.send('atalho-iniciar-parar');
+    });
 
     mainWindow.loadURL(`file://${__dirname}/app/index.html`);
 });
